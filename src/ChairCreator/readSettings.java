@@ -1,63 +1,71 @@
+
 package ChairCreator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+
+import java.io.*;
 import java.util.Scanner;
+
 
 public class readSettings {
 
-	public static void main(String... aArgs) throws FileNotFoundException {
-		readSettings parser = new readSettings("/Users/Home/Desktop/blah.txt");
-		parser.processLineByLine();
-		log("Done.");
-	}
+  public static void main(String... aArgs) throws FileNotFoundException {
+    readSettings parser = new readSettings("/Users/Home/Desktop/blah.txt");
+    parser.processLineByLine();
+    log("Done.");
+  }
 
-	public readSettings(String aFileName) {
-		fFile = new File(aFileName);
-	}
 
-	public final void processLineByLine() throws FileNotFoundException {
-		Scanner scanner = new Scanner(fFile);
-		try {
+  public readSettings(String aFileName){
+    fFile = new File(aFileName);
+  }
 
-			while (scanner.hasNextLine()) {
-				processLine(scanner.nextLine(), "blabla ");
-			}
-		} finally {
+  public final void processLineByLine() throws FileNotFoundException {
+    Scanner scanner = new Scanner(fFile);
+    try {
 
-			scanner.close();
-		}
-	}
+      while ( scanner.hasNextLine() ){
+        processLine( scanner.nextLine(), "blabla " );
+      }
+    }
+    finally {
 
-	protected void processLine(String aLine, String str) {
+      scanner.close();
+    }
+  }
 
-		Scanner scanner = new Scanner(aLine);
-		scanner.useDelimiter("=");
-		if (scanner.hasNext()) {
-			String name = scanner.next();
-			String value = scanner.next();
+  protected void processLine(String aLine, String str){
 
-			if (name.equals(str))
-				return;
+    Scanner scanner = new Scanner(aLine);
+    scanner.useDelimiter("=");
+    if ( scanner.hasNext() ){
+      String name = scanner.next();
+      String value = scanner.next();
 
-			log("Name is : " + quote(name.trim()) + ", and Value is : "
-					+ quote(value.trim()));
-		} else {
-			log("Empty or invalid line. Unable to process.");
-		}
+      if(name.equals(str)) return;
 
-		scanner.close();
-	}
+      log("Name is : " + quote(name.trim()) + ", and Value is : " + quote(value.trim()) );
+    }
+    else {
+      log("Empty or invalid line. Unable to process.");
+    }
 
-	// PRIVATE //
-	private final File fFile;
+    scanner.close();
+  }
 
-	private static void log(Object aObject) {
-		System.out.println(String.valueOf(aObject));
-	}
 
-	private String quote(String aText) {
-		String QUOTE = "'";
-		return QUOTE + aText + QUOTE;
-	}
+
+
+  // PRIVATE //
+  private final File fFile;
+
+  private static void log(Object aObject){
+    System.out.println(String.valueOf(aObject));
+  }
+
+  private String quote(String aText){
+    String QUOTE = "'";
+    return QUOTE + aText + QUOTE;
+  }
 }
+
+

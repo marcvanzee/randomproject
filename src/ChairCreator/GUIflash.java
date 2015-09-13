@@ -1,134 +1,139 @@
 package ChairCreator;
 
-import java.applet.Applet;
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class GUIflash extends Applet {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	Point3D vertices[];
-	Triangle triangles[];
+    Point3D vertices[];
+    Triangle triangles[];
 
-	private String DELIM = "<br>";
+    private String DELIM = "<br>";
 
-	ChairEngine tryChair;
+    ChairEngine tryChair;
 
-	static double seatMinHeight = 0.1;
-	static double seatMaxHeight = 1.2;
-	static double backMinAngle = 70;
-	static double backMaxAngle = 150;
-	static double legsMinAngle = 40;
-	static double legsMaxAngle = 90;
+    static double seatMinHeight = 0.1;
+    static double seatMaxHeight = 1.2;
+    static double backMinAngle = 70;
+    static double backMaxAngle = 150;
+    static double legsMinAngle = 40;
+    static double legsMaxAngle = 90;
 
-	public String createChair() {
-		tryChair = new ChairEngine();
-		Boolean done = false;
+    public String createChair(){
+        tryChair = new ChairEngine();
+        Boolean done = false;
 
-		setVariables();
+        setVariables();
 
-		int ronde = 0;
-		while (!done) {
-			done = tryChair.go();
-			ronde++;
-		}
+        int ronde = 0;
+        while (!done) {
+            done = tryChair.go();
+            ronde++;
+        }
 
-		MassEngine massEngine = new MassEngine();
-		massEngine.createMass();
+        MassEngine massEngine = new MassEngine();
+        massEngine.createMass();
 
-		vertices = tryChair.points;
-		triangles = tryChair.triangles;
+        vertices = tryChair.points;
+        triangles = tryChair.triangles;
 
-		/*
-		 * dit printen: NEWPOINTS [num]<br> point [i] x y z<br> NEWTRIANGLES
-		 * [num]<br> triangle [i] 1 2 3<br> FINISHED
-		 */
+        /* dit printen:
+         * NEWPOINTS [num]<br>
+         * point [i] x y z<br>
+         * NEWTRIANGLES [num]<br>
+         * triangle [i] 1 2 3<br>
+         * FINISHED
+         */
 
-		String str = "NEWPOINTS " + vertices.length + DELIM;
-		for (int i = 0; i < vertices.length; i++) {
-			str = str.concat("point " + i + " " + vertices[i].print() + DELIM);
-		}
+        String str = "NEWPOINTS " + vertices.length + DELIM;
+        for (int i=0; i<vertices.length; i++) {
+            str = str.concat("point " + i + " " + vertices[i].print() + DELIM);
+        }
 
-		str = str.concat("NEWTRIANGLES " + triangles.length + DELIM);
+        str = str.concat("NEWTRIANGLES " + triangles.length + DELIM);
 
-		for (int i = 0; i < triangles.length; i++) {
-			str = str.concat("triangle " + i + " " + triangles[i].print()
-					+ DELIM);
-		}
+        for (int i=0; i<triangles.length; i++) {
+            str = str.concat("triangle " + i + " " + triangles[i].print() + DELIM);
+        }
 
-		str = str.concat("FINISHED");
+        str = str.concat("FINISHED");
 
-		System.out.println(str);
+        System.out.println(str);
 
-		return str;
-	}
+        return str;
+    }
 
-	public void setVariables() {
+    public void setVariables(){
+        
+        tryChair.mass = true;
 
-		tryChair.mass = true;
+        tryChair.SEAT_MIN_HEIGHT = seatMinHeight;
+        tryChair.SEAT_MAX_HEIGHT = seatMaxHeight;
 
-		tryChair.SEAT_MIN_HEIGHT = seatMinHeight;
-		tryChair.SEAT_MAX_HEIGHT = seatMaxHeight;
+        tryChair.BACK_MIN_ANGLE = backMinAngle;
+        tryChair.BACK_MAX_ANGLE = backMaxAngle;
 
-		tryChair.BACK_MIN_ANGLE = backMinAngle;
-		tryChair.BACK_MAX_ANGLE = backMaxAngle;
+        tryChair.LEGS_MIN_ANGLE = legsMinAngle;
+        tryChair.LEGS_MAX_ANGLE = legsMaxAngle;
+        
+    }
+    
+    public void setLegsMinAngle(double legsMinAngle){
 
-		tryChair.LEGS_MIN_ANGLE = legsMinAngle;
-		tryChair.LEGS_MAX_ANGLE = legsMaxAngle;
+        this.legsMinAngle = legsMinAngle;
+    }
+    
+    public void setBackMinAngle(double backMinAngle){
 
-	}
+        this.backMinAngle = backMinAngle;
+    }
+    
+    public void setSeatMinHeight(double seatMinHeight){
 
-	public void setLegsMinAngle(double legsMinAngle) {
+        this.seatMinHeight = seatMinHeight;
+    }
 
-		this.legsMinAngle = legsMinAngle;
-	}
+    public void setLegsMaxAngle(double legsMaxAngle){
 
-	public void setBackMinAngle(double backMinAngle) {
+        this.legsMaxAngle = legsMaxAngle;
+    }
 
-		this.backMinAngle = backMinAngle;
-	}
+    public void setBackMaxAngle(double backMaxAngle){
 
-	public void setSeatMinHeight(double seatMinHeight) {
+        this.backMaxAngle = backMaxAngle;
+    }
 
-		this.seatMinHeight = seatMinHeight;
-	}
+    public void setSeatMaxHeight(double seatMaxHeight){
 
-	public void setLegsMaxAngle(double legsMaxAngle) {
+        this.seatMaxHeight = seatMaxHeight;
+    }
 
-		this.legsMaxAngle = legsMaxAngle;
-	}
 
-	public void setBackMaxAngle(double backMaxAngle) {
+    public String getLegsAngle(){
+    
+        double value1 = tryChair.CURRENT_LEGS_MIN_ANGLE;
+        double value2 = tryChair.CURRENT_LEGS_MAX_ANGLE;
 
-		this.backMaxAngle = backMaxAngle;
-	}
+        return ("<" + value1 + ">|<" + value2 + ">");
+    }
+    
+    public String getBackAngle(){
 
-	public void setSeatMaxHeight(double seatMaxHeight) {
+        double value1 = tryChair.CURRENT_BACK_MIN_ANGLE;
+        double value2 = tryChair.CURRENT_BACK_MAX_ANGLE;
 
-		this.seatMaxHeight = seatMaxHeight;
-	}
+        return ("<" + value1 + ">|<" + value2 + ">");
 
-	public String getLegsAngle() {
+    }
+    
+    public String getSeatHeight(){
 
-		double value1 = tryChair.CURRENT_LEGS_MIN_ANGLE;
-		double value2 = tryChair.CURRENT_LEGS_MAX_ANGLE;
+        double value1 = tryChair.CURRENT_SEAT_MIN_HEIGHT;
+        double value2 = tryChair.CURRENT_SEAT_MAX_HEIGHT;
+                
+        return ("<" + value1 + ">|<" + value2 + ">");
 
-		return ("<" + value1 + ">|<" + value2 + ">");
-	}
-
-	public String getBackAngle() {
-
-		double value1 = tryChair.CURRENT_BACK_MIN_ANGLE;
-		double value2 = tryChair.CURRENT_BACK_MAX_ANGLE;
-
-		return ("<" + value1 + ">|<" + value2 + ">");
-
-	}
-
-	public String getSeatHeight() {
-
-		double value1 = tryChair.CURRENT_SEAT_MIN_HEIGHT;
-		double value2 = tryChair.CURRENT_SEAT_MAX_HEIGHT;
-
-		return ("<" + value1 + ">|<" + value2 + ">");
-
-	}
+    }
 }
