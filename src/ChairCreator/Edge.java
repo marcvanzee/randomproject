@@ -8,6 +8,7 @@ package ChairCreator;
        a = 0;
        b = 0;
    }
+   //
 
    public Edge( int A, int B ) {
        if (A < B){
