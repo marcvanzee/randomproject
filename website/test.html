@@ -1,0 +1,79 @@
+<html>
+<head>
+<script language="JavaScript" type="text/javascript">
+<!--
+
+function sendChair() {
+  var elSel = document.getElementById('selectX');
+  for (i = 0; i<elSel.length; i++) {
+  	switch(i) {
+  	  case 1: 
+  	    document.write('ja je hebt de legs more skewed!');
+  	    break;
+  	}
+  }
+}
+
+function removeOptionSelected()
+{
+  var elSel = document.getElementById('selectX');
+  var i;
+  for (i = elSel.length - 1; i>=0; i--) {
+    if ((elSel.options[i].selected) && (elSel.value != 0)) {
+      elSel.remove(i);
+      done=true;
+    }
+  }
+}
+
+function appendOptionLast(txt, val)
+{
+  var elOptNew = document.createElement('option');
+  elOptNew.text = txt;
+  elOptNew.value = val;
+  var elSel = document.getElementById('selectX');
+
+  try {
+    elSel.add(elOptNew, null); // standards compliant; doesn't work in IE
+  }
+  catch(ex) {
+    elSel.add(elOptNew); // IE only
+  }
+}
+//-->
+</script>
+</head>
+<body>
+<form>
+<input type="button" value="versturen alles!!!" onClick="sendChair();">
+</form>
+<br>
+<br>
+<br>
+
+<form name="choices">
+<table>
+<tr valign="top"><td width=250>
+Make...<br>
+ <input type="button" value="the legs more skewed" onclick="appendOptionLast('legs more skewed', 1);" />
+ <input type="button" value="the legs less skewed" onclick="appendOptionLast('legs less skewed', 2);" /><br />
+  
+ <input type="button" value="the back steeper" onclick="appendOptionLast('back steeper', 3);" />
+ <input type="button" value="the back more straight" onclick="appendOptionLast('back more straight', 4);" /><br />
+ 
+ <input type="button" value="the seat higher" onclick="appendOptionLast('seat higher', 5);" />
+ <input type="button" value="the seat lower" onclick="appendOptionLast('seat lower', 6);" /><br />
+ 
+ <input type="button" value="legs like these" onclick="appendOptionLast('legs like these', 7);" />
+ <input type="button" value="a back like this" onclick="appendOptionLast('a back like this', 8);" /><br />
+ <input type="button" value="a seat like this" onclick="appendOptionLast('a seat like this', 9);" /><br />
+ 
+</td><td>
+ <select id="selectX" size="10" width="30" multiple="multiple">
+  <option value="0" selected="selected">-- What do you think of the chair?</option>
+ </select>
+</td><td>
+ <input type="button" value="x" onclick="removeOptionSelected();" />
+</td></tr>
+</table>
+</form>

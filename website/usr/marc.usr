@@ -1,0 +1,6 @@
+legsMinAngle = 1.2
+legsMaxAngle = 3.4
+backMinAngle = 5.6
+backMaxAngle = 7.8
+seatMinHeight = 9.10
+seatMaxHeight = 11.12

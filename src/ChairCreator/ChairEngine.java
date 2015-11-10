@@ -14,22 +14,22 @@ public class ChairEngine {
 	int DIMY = 2;
 	int DIMZ = 2;
 
-	static double SEAT_STABILITY = 0.2;
-        static double SEAT_STEEP = 170;
-        static double SEAT_MIN_HEIGHT = 0.1;;
-        static double SEAT_MAX_HEIGHT = 1.2;;
+	static double SEAT_STABILITY = 0.5;
+        static double SEAT_STEEP = 30;
+        static double SEAT_MIN_HEIGHT = 0.5;
+        static double SEAT_MAX_HEIGHT = 1.2;
 
         static double CURRENT_SEAT_MIN_HEIGHT;
         static double CURRENT_SEAT_MAX_HEIGHT;
 
-        static double BACK_MIN_ANGLE = 70;
-        static double BACK_MAX_ANGLE = 150;
+        static double BACK_MIN_ANGLE = 60;
+        static double BACK_MAX_ANGLE = 120;
 
         static double CURRENT_BACK_MIN_ANGLE;
         static double CURRENT_BACK_MAX_ANGLE;
 
 	static double LEGS_STABILITY = 0.2;
-        static double LEGS_MIN_ANGLE = 0;
+        static double LEGS_MIN_ANGLE = 30;
         static double LEGS_MAX_ANGLE = 90;
 
         static double CURRENT_LEGS_MIN_ANGLE;
